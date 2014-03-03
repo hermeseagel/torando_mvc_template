@@ -5,7 +5,8 @@ import tornado.gen
 #import pymongo
 import hashlib
 import datetime
-
+import libs.dbops 
+import config.dbsets as dbset
 
 class  reghandler(tornado.web.RequestHandler):
 	
@@ -21,7 +22,12 @@ class  reghandler(tornado.web.RequestHandler):
 		emaila=self.get_argument('emailaddr')
 		encryptstr=hashlib.sha256(password.encode()).hexdigest()
 		print('user.html',username)
-		data={'companyname':companyname,'username':username,'password':encryptstr,}
+		data={'companyname':companyname,'username':username,'password':encryptstr,'emaila':emaila}
+		serverip=dbset.serverip
+		db=dbset.db
+		collect=dbset.collect
+		port=dbset.port
+		libs.dbops.insert(serverip,port,db,collection,data)
 		#data={'emaila':}
 		
 		#db = pymongo.Connection('10.37.129.4',27017)
