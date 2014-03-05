@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import config.dbsets as dbset
 '''initial mongodb data set '''
 logtype={'index':'logtype','session':'sess','tablespace':'tbs','segament':'seg','UNDO':'undo','PGA':'pga'}
-sess={'logtype':'sess','para0':'cust_id','para1':'instance','para2':'sampletime','para3':'active','para4':'inactive','para5':'total'}
+sess={'logtype':'sess','para0':'cust_id','para1':'host','para2':'instance',,'para3':'sampletime','para4':'active','para5':'inactive','para6':'total'}
 tbs={'logtype':'tbs','para0':'cust_id','para1':'host','para2':'inst_name','para3':'sample_time',
 'para4':'tablespace','para5':'total','para6':'megs_alloc','para7':'megs_used'}
 arch={'logtype':'arch'}
@@ -53,16 +53,19 @@ def initalstep():
 	
 	db.authenticate(username,password)
 	collect=db['sysconfig']
-	print(logtype.values())
-	for para in logtype.values():
-		#print(para)
+	#print(logtype.values())
+	paras=[]
+	for num in logtype.values() :
+		paras.append(num)
 		#print(collect.find({"logtype":para}).count())
+	for para in paras:
 		if collect.find({"logtype":para}).count() >0 or collect.find({"index":"logtype"}).count() > 0 :
-			pass
+				print('pass')
+				pass
 		elif collect.find({"index":"logtype"}).count() ==0 :
-			collect.insert(logtype)
-			collect.insert(sess)
-			collect.insert(tbs)
+				collect.insert(logtype)
+				collect.insert(sess)
+				collect.insert(tbs)
 
 
 	
