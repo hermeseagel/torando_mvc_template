@@ -31,6 +31,9 @@ class query():
 	def query_one(self):
 		cursor=self.db[self.collection].find_one(self.key)
 		return cursor
+	def insert_one(self,scollection,data):
+		self.db[scollection].insert()
+		
 class queryHandler(tornado.web.RequestHandler):
 		def get(self):
 			pass

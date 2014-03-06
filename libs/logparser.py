@@ -1,8 +1,11 @@
 import os,sys
 import re
+
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,parentdir)
-from handlers.query import query
+import  libs.dbops as dbops
+query=dbops.dbquery
+write=dbops.dbwrite
 #logpath='/Users/Hermes/Python_script/torando_mvc_template/logs'
 fname='ddsc_db_sess.log'
 
@@ -62,38 +65,11 @@ class dblogparser:
 					#print(jkey,':',jvalue)
 					jall[jkey]=jvalue
 				jall['datestamp']=datestamp
+				collect=jall['cust_id']
+				#print('write to collection ',collect,' data is ', jall)
+				write(collect,jall).insert()
 				#print(jall)
 		file.close()
 
 
 
-#dblogparser.parser(logpath,fname,'20140202')
-
-#filepat=os.path.join(logpath,fname)
-
-#print(match(fname,'ses'))
-
-#fncontent=open(filepat,'r')
-#data={}
-#j=['Customer','Server','Instance','Datetime','session','par2','par3','par4']
-#for lin in fncontent:
-	
-#	lin=lin.strip()
-#	if  len(lin) > 0 :
-#		p=lin.split('|')
-		#print(len(p))
-		#print(type(p))
-#		for i in range(len(p)):
-			#print(j[i],p[i])
-#			data[j[i]]=p[i]
-			#print(i)
-		#	print(p[i])
-	#	data['CUSTOMER']=p[0]
-	#	data['Server']=p[1]
-	#	data['Instance']=p[2]
-	#	data['Datetime']=p[3]
-	#	data['session']=p[4]
-	#	print(data)
-	
-
-#fncontent.close()

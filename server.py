@@ -2,7 +2,9 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import settings as setting
-import sys
+import sys,os
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0,parentdir) 
 port = '8080'
 if __name__ =='__main__':
 #	print(type(setting.application))
